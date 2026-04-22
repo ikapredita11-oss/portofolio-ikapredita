@@ -3,9 +3,11 @@
 ## Tools I Installed
 - **Cursor IDE** — Downloaded and installed from https://cursor.com/
 - **Claude Code for VS Code** — Installed official extension by Anthropic 
-  from Cursor Extensions Marketplace
+  from Cursor Extensions Marketplace. Attempted login via Claude.ai 
+  Subscription — browser authorization completed.
 - **Codex by OpenAI** — Installed official extension by OpenAI 
-  from Cursor Extensions Marketplace
+  from Cursor Extensions Marketplace. Extension activated and 
+  onboarding walkthrough completed.
 
 ## Steps I Completed
 1. Created a GitHub account at github.com
@@ -28,6 +30,9 @@
 - The Codex extension showed an onboarding tutorial on first launch 
   which I initially thought was an error — I clicked through it to 
   complete the setup.
+- Logging in to Claude Code required a Claude.ai account. 
+  I signed up for a free account at claude.ai and authorized 
+  the connection through the browser prompt inside Cursor.
 
 ## About Me
 My name is Ika Predita. I am applying for the 
