@@ -1,5 +1,4 @@
 from youtube_transcript_api import YouTubeTranscriptApi
-from youtube_transcript_api.proxies import WebshareProxyConfig
 import os
 import re
 
@@ -13,33 +12,40 @@ def get_and_save_transcript(video_url, filename):
     if not video_id:
         print("URL tidak valid")
         return
-
     print(f"Mengambil transcript: {video_id}")
-
-    try:
-        # Cara baru untuk versi terbaru
-        ytt_api = YouTubeTranscriptApi()
-        fetched = ytt_api.fetch(video_id)
-        full_text = " ".join([snippet.text for snippet in fetched])
-
-    except Exception as e:
-        print(f"Error: {e}")
-        return
-
+    transcript_list = YouTubeTranscriptApi().fetch(video_id)
+    full_text_parts = []
+    for item in transcript_list:
+        if isinstance(item, dict):
+            full_text_parts.append(item.get("text", ""))
+        else:
+            full_text_parts.append(getattr(item, "text", ""))
+    full_text = " ".join(part for part in full_text_parts if part)
     os.makedirs("research/youtube-transcripts", exist_ok=True)
     filepath = f"research/youtube-transcripts/{filename}.md"
-
     with open(filepath, "w", encoding="utf-8") as f:
         f.write(f"# YouTube Transcript — {filename}\n\n")
-        f.write(f"**URL:** {video_url}\n")
         f.write(f"**Collected:** April 2026\n\n")
         f.write("## Transcript\n\n")
         f.write(full_text)
+    print(f"✅ Tersimpan: {filepath}")
 
-    print(f"Tersimpan: {filepath}")
+# Ganti URL dan filename sesuai video yang ingin diambil
+video_urls = [
+    "https://youtu.be/bLCeTeTZSFU?si=JUjf2qqh8FRsrV-n"
+    
+    
 
-# Ganti URL dan filename di sini
-video_url = "https://www.youtube.com/watch?v=SWGKLk34t7Y"
-filename = "taylor-haren-12m-cold-emails-2025"
+]
+filenames = [
+    "taylor-haren-sent-50M-cold-emails"
 
-get_and_save_transcript(video_url, filename)
+
+    
+]
+
+if len(video_urls) != len(filenames):
+    raise ValueError("Jumlah video URL dan filename harus sama.")
+
+for video_url, filename in zip(video_urls, filenames):
+    get_and_save_transcript(video_url, filename)
